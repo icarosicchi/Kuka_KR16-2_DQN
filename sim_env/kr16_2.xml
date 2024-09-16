@@ -1,0 +1,77 @@
+
+    <mujoco model="kuka_kr16_2">
+
+    <asset>
+        <mesh name="base_link" file="base_link.stl" />
+        <mesh name="link_1" file="link_1.stl" />
+        <mesh name="link_2" file="link_2.stl" />
+        <mesh name="link_3" file="link_3.stl" />
+        <mesh name="link_4" file="link_4.stl" />
+        <mesh name="link_5" file="link_5.stl" />
+        <mesh name="link_6" file="link_6.stl" />
+        <mesh name="cestinho" file="cestinho.stl"  scale="0.001 0.001 0.001"/>
+    </asset>
+
+
+    <worldbody>
+        <body name="base">
+            <geom name="base_link" type="mesh" mesh="base_link" rgba="0.1 0.1 0.1 1" />
+            <body name="link_1" pos="0 0 0.675" >
+                <joint name="joint_a1" pos="0 0 0" axis="0 0 1" limited="true" range="-3.22886 3.22886" />
+                <geom name="link_1" type="mesh" mesh="link_1" rgba="0.95 0.36 0.1 1" density="1"/>
+                <body name="link_2" pos="0.26 0 0">
+                    <joint name="joint_a2" pos="0 0 0" axis="0 1 0" limited="true" range="-2.70526 0.610865"  />
+                    <geom name="link_2" type="mesh" mesh="link_2" rgba="0.95 0.36 0.1 1" density="1"/>
+                    <body name="link_3" pos="0.68 0 0">
+                        <joint name="joint_a3" pos="0 0 0" axis="0 1 0" limited="true" range="-2.26893 2.68781" />
+                        <geom name="link_3" type="mesh" mesh="link_3" rgba="0.95 0.36 0.1 1" density="1"/>
+                        <body name="link_4" pos="0.67 0 -0.035">
+                            <joint name="joint_a4" pos="0 0 0" axis="-1 0 0" limited="true" range="-6.10865 6.10865"/>
+                            <geom name="link_4" type="mesh" mesh="link_4" rgba="0.95 0.36 0.1 1" density="1" />
+                            <body name="link_5" pos="0 0 0">
+                                <joint name="joint_a5" pos="0 0 0" axis="0 1 0" limited="true" range="-2.26893 2.26893" />
+                                <geom name="link_5" type="mesh" mesh="link_5" rgba="0.95 0.36 0.1 1" density="1"/>
+                                <body name="link_6" pos="0 0 0">
+                                    <joint name="joint_a6" pos="0 0 0" axis="-1 0 0" limited="true" range="-6.10865 6.10865"  />
+                                    <geom name="link_6" type="mesh" mesh="link_6" rgba="0.95 0.36 0.1 1" density="1"/>
+                                    <body name="cestinho" pos="0.155 0 0">
+                                        <geom name="cestinho" type="mesh" mesh="cestinho" rgba="0.95 0.36 0.1 1" xyaxes="0 1 0 0 0 1" density="1"/>
+                                        <body name="target" pos="0.12425 0 -0.04">
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+    <actuator >
+               
+
+                <intvelocity name="a1_intvel" joint="joint_a1" actrange="-3.22886 3.22886" kp="8000"/>
+                <intvelocity name="a2_intvel" joint="joint_a2" actrange="-2.70526 0.60000" kp="64000"/> 
+                <intvelocity name="a3_intvel" joint="joint_a3" actrange="-2.26893 2.68781" kp="32000"/>
+                <intvelocity name="a4_intvel" joint="joint_a4" actrange="-6.10865 6.10865" kp="400.0"/>
+                <intvelocity name="a5_intvel" joint="joint_a5" actrange="-2.26893 2.26893" kp="400"/>
+                <intvelocity name="a6_intvel" joint="joint_a6" actrange="-6.10865 6.10865" kp="100"/>
+                <adhesion name="adhere_cestinho" body="cestinho" ctrlrange="0 1" gain="5"/>
+
+    </actuator>
+    <contact>
+        <exclude name="exclude_2_body_0" body1="base" body2="link_1"/>
+        <exclude name="exclude_6_body_5" body1="link_6" body2="link_5"/>
+        <exclude name="exclude_5_body_4" body1="link_5" body2="link_4"/>
+        <exclude name="exclude_4_body_3" body1="link_4" body2="link_3"/>
+        <exclude name="exclude_3_body_2" body1="link_3" body2="link_2"/>
+        <exclude name="exclude_2_body_1" body1="link_2" body2="link_1"/>
+       
+</contact>
+</mujoco>
+
+
+
+
+    
+    
